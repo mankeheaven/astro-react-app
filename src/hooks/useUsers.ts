@@ -8,7 +8,6 @@ import { getUsersService, createUserService, deleteUserService, updateUserServic
 export const useUsers = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string>('');
 
   /**
    * 获取用户列表
@@ -16,16 +15,13 @@ export const useUsers = () => {
   const fetchUsers = useCallback(async (searchQuery?: string) => {
     try {
       setLoading(true);
-      setError('');
       
       const response = searchQuery 
         ? await searchUsersService(searchQuery)
         : await getUsersService();
-
-        console.log(response);
         setUsers(response?.list||[]);
     } catch (err) {
-      setError(err instanceof Error ? err.message : '获取用户列表失败');
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -37,16 +33,13 @@ export const useUsers = () => {
   const createUser = useCallback(async (userData: FormData) => {
     try {
       setLoading(true);
-      setError('');
       const response = await createUserService(userData);
       if (response) {
         await fetchUsers();
       }
       return true
     } catch (err) {
-      const errorMsg = err instanceof Error ? err.message : '创建用户失败';
-      setError(errorMsg);
-      return false
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -58,14 +51,12 @@ export const useUsers = () => {
   const deleteUser = useCallback(async (userId: string) => {
     try {
       setLoading(true);
-      setError('');
       const response = await deleteUserService(userId);
       if (response) {
         await fetchUsers();
       } 
     } catch (err) {
-      const errorMsg = err instanceof Error ? err.message : '删除用户失败';
-      setError(errorMsg);
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -77,14 +68,12 @@ export const useUsers = () => {
   const updateUser = useCallback(async (userId: string, userData: Partial<CreateUserInput>) => {
     try {
       setLoading(true);
-      setError('');
       const response = await updateUserService(userId, userData)
       if (response) {
         await fetchUsers();
       } 
     } catch (err) {
-      const errorMsg = err instanceof Error ? err.message : '更新用户失败';
-      setError(errorMsg);
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -98,7 +87,7 @@ export const useUsers = () => {
       const response = await checkEmailAvailabilityService(email);
       return response;
     } catch (err) {
-      return false;
+      throw err;
     }
   }, []);
 
@@ -110,12 +99,10 @@ export const useUsers = () => {
   return {
     users,
     loading,
-    error,
     fetchUsers,
     createUser,
     deleteUser,
     updateUser,
     checkEmailAvailability,
-    clearError: () => setError('')
   };
 }; 

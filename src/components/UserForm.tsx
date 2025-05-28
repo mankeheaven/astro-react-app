@@ -19,11 +19,9 @@ const UserForm: React.FC = () => {
 	const {
 		users,
 		loading,
-		error,
 		createUser,
 		deleteUser,
 		checkEmailAvailability,
-		clearError,
 	} = useUsers();
 
 	// 处理表单输入
@@ -36,8 +34,6 @@ const UserForm: React.FC = () => {
 			[name]: value,
 		}));
 
-		// 清除之前的错误和提交消息
-		if (error) clearError();
 		if (submitMessage) setSubmitMessage("");
 	};
 
@@ -94,7 +90,6 @@ const UserForm: React.FC = () => {
 			toast.success(`用户 "${deleteConfirm.user.name}" 删除成功！`);
 			hideDeleteConfirm();
 		} catch (error) {
-			toast.error("删除用户失败，请重试");
 			console.error("删除失败:", error);
 		}
 	};
