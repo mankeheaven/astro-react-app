@@ -1,6 +1,6 @@
 ---
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
 export interface Props {
 	title: string;
@@ -20,14 +20,14 @@ const { title } = Astro.props;
 		<meta name="description" content="使用 Astro、React、TailwindCSS 和 TypeScript 构建的全栈应用演示" />
 	</head>
 	<body class="min-h-screen flex flex-col bg-gray-50">
-		<Header client:load />
+		<Header />
 
 		<!-- 主要内容区域 -->
 		<main class="flex-1">
 			<slot />
 		</main>
 
-		<Footer client:load />
+		<Footer />
 	</body>
 </html>
 

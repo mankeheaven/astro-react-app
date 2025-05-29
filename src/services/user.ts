@@ -15,7 +15,7 @@ export const createUserService = (data: CreateUserInput): Promise<User> => {
 };
 
 export const deleteUserService = (id: string): Promise<User> => {
-	return request<User>(`/users?id=${id}`, {
+	return request<User>(`/users/${id}`, {
 		method: "DELETE",
 	});
 };
@@ -24,7 +24,7 @@ export const updateUserService = (
 	id: string,
 	data: Partial<CreateUserInput>
 ): Promise<User> => {
-	return request<User>(`/users?id=${id}`, {
+	return request<User>(`/users/${id}`, {
 		method: "PUT",
 		data,
 	});
