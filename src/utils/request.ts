@@ -7,7 +7,7 @@ import axios, {
 import toast from "./toast";
 
 const instance = axios.create({
-	baseURL: "http://localhost:4321/api", //TODO: 先这样，后面再处理
+	baseURL: "/api",
 	timeout: 10000,
 	headers: {
 		"Content-Type": "application/json",

@@ -169,7 +169,15 @@ export default defineConfig({
 ## docker部署
 
 ```
-docker build -t astro-app .
-docker run -p 4321:4321 astro-app
+# 简化版部署
+docker-compose -f docker-compose.simple.yml up -d --build
+
+# 完整版部署
+docker-compose up -d --build
+
+# 其他命令都保持一样
+docker-compose ps
+docker-compose logs -f
+docker-compose down
 
 ```

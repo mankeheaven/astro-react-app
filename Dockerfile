@@ -47,7 +47,7 @@ COPY --from=build --chown=astro:nodejs /app/dist ./dist
 COPY --from=build --chown=astro:nodejs /app/package.json ./package.json
 
 # 创建数据目录（用于存储用户数据文件）
-RUN mkdir -p /app/data && chown -R astro:nodejs /app/data
+RUN mkdir -p /app/data && chown -R astro:nodejs /app/data && chmod -R 755 /app/data
 
 # 切换到非 root 用户
 USER astro
