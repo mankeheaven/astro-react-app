@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  astro-app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: astro-react-app
+    ports:
+      - "4321:4321"
+    environment:
+      - NODE_ENV=production
+      - HOST=0.0.0.0
+      - PORT=4321
+    volumes:
+      # 持久化用户数据
+      - ./data:/app/data
+      # 可选：挂载日志目录
+      - ./logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - astro-network
+    # 资源限制
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+
+  # 可选：添加 Nginx 反向代理
+  nginx:
+    image: nginx:alpine
+    container_name: astro-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro  # SSL 证书目录
+    depends_on:
+      - astro-app
+    restart: unless-stopped
+    networks:
+      - astro-network
+
+networks:
+  astro-network:
+    driver: bridge
+
+volumes:
+  app-data:
+    driver: local

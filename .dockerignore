@@ -1,0 +1,89 @@
+# 依赖目录
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 构建产物
+dist/
+.astro/
+.next/
+out/
+
+# 环境变量文件
+.env
+.env.local
+.env.development
+.env.staging
+.env.production
+
+# Git
+.git/
+.gitignore
+.gitmodules
+
+# IDE 和编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 日志
+logs/
+*.log
+log/
+
+# 临时文件
+.tmp/
+.cache/
+temp/
+
+# 测试和覆盖率
+coverage/
+test/
+tests/
+**/*.test.*
+**/*.spec.*
+
+# 文档
+*.md
+docs/
+documentation/
+
+# 操作系统文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Docker 相关
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+.circleci/
+
+# 备份和压缩文件
+*.backup
+*.bak
+*.tar
+*.zip
+*.gz
+
+# SSL 证书（如果有的话）
+*.pem
+*.key
+*.crt
+
+# 数据库文件
+*.db
+*.sqlite
+*.sqlite3
