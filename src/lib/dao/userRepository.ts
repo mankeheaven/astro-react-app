@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import type { User, UserStats } from '../../types/user';
+import { generateId } from '../utils/id';
 
 /**
  * 用户数据仓库类
@@ -65,7 +66,7 @@ export class UserRepository {
     const users = await this.findAll();
     
     const newUser: User = {
-      id: this.generateId(),
+      id: generateId(10),
       ...userData,
       createdAt: new Date().toISOString()
     };
@@ -121,13 +122,6 @@ export class UserRepository {
       console.error('保存用户数据失败:', error);
       throw new Error('保存数据失败');
     }
-  }
-
-  /**
-   * 生成唯一ID
-   */
-  private generateId(): string {
-    return Date.now().toString() + Math.random().toString(36).substr(2, 5);
   }
 
   /**

@@ -16,10 +16,7 @@ export const GET: APIRoute = async ({ request }) => {
     
     const isAvailable = await userService.isEmailAvailable(email);
     
-    return ApiResponseHelper.success({
-      email,
-      available: isAvailable
-    }, isAvailable ? '邮箱可用' : '邮箱已被使用');
+    return ApiResponseHelper.success<boolean>(isAvailable, isAvailable ? '邮箱可用' : '邮箱已被使用');
   } catch (error) {
     return handleApiError(error);
   }

@@ -18,11 +18,11 @@ export const GET: APIRoute = async ({ request }) => {
         list: users,
         total: users.length
       }
-      return ApiResponseHelper.success(response, `找到 ${users.length} 个匹配的用户`);
+      return ApiResponseHelper.success<UserList>(response, `找到 ${users.length} 个匹配的用户`);
     } else {
       // 获取所有用户
       const response : UserList = await userService.getAllUsers();
-      return ApiResponseHelper.success(response);
+      return ApiResponseHelper.success<UserList>(response);
     }
   } catch (error) {
     return handleApiError(error);
@@ -36,7 +36,7 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
     const response : User= await userService.createUser(body);
-    return ApiResponseHelper.success(
+    return ApiResponseHelper.success<User>(
       response,
       `感谢您的注册，${response.name}！我们已收到您的信息并永久保存。`,
       201
@@ -60,7 +60,7 @@ export const DELETE: APIRoute = async ({ request }) => {
     
     const response : User = await userService.deleteUser(userId);
     
-    return ApiResponseHelper.success(
+    return ApiResponseHelper.success<User>(
       response,
       `用户 ${response.name} 已被删除`
     );
@@ -84,7 +84,7 @@ export const PUT: APIRoute = async ({ request }) => {
     const body = await request.json();
     const response : User= await userService.updateUser(userId, body);
     
-    return ApiResponseHelper.success(
+    return ApiResponseHelper.success<User>(
       response,
       `用户 ${response.name} 信息已更新`
     );
